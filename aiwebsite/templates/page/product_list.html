@@ -1,0 +1,63 @@
+{% extends 'core/base.html' %}
+
+{% block container %}
+
+
+<div class="title-page">
+
+    {% if category %}
+        <h2 class="text-center category-title" style="color: aliceblue;">{{ category }}</h2>
+        {% else  %}
+        <h1 class="text-center" style="color: aliceblue;">Popular Ai Website</h1>
+        {% endif %}
+    
+</div>
+<div class="search">
+    <i class="fa fa-search"></i>
+    <input type="text" class="form-control" placeholder="Have a question? Ask Now">
+    <button class="btn btn-primary">Search</button>
+</div>
+<div class="counts">
+    <h4 class="">Show Items ({{ products.count }})</h4>
+
+</div>
+
+
+
+<div class="row row-cols-1 row-cols-md-3 g-4 py-5">
+
+    {% for product in products %}
+
+    <div class="col">
+        <div class="card">
+            <div class="image-container">
+                <img src="{{ product.imageSrc}}" width="250" height="250" class="card-img-top" alt="{{product.title}}">
+
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">{{product.title}}  <a href="{{product.url}}" target="_blank"><button class="btn btn-primary">TRY IT NOW</button></a></h5>
+                <p class="card-text">{{product.Description |truncatechars:200}}</p>
+            </div>
+            <div class="mb-5 d-flex justify-content-around">
+                <a href="{{product.get_absolute_url}}"><button class="btn btn-primary">SHOW MORE</button></a>
+                {% comment "note" %}
+                <a href="{% url 'product_detail_view' category_slug = product.category.slug slug=product.slug %}" class="list-group-item list-group-item-action">SHOW MORE</a>
+                {% endcomment%}
+
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    
+
+
+
+
+        
+        
+
+
+</div>
+
+
+{% endblock container %}

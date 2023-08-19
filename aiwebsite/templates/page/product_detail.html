@@ -1,0 +1,26 @@
+{% extends 'core/base.html' %} {% block container %}
+
+<div class="col-md-6 mb-4 mx-auto">
+
+  
+    <div class="card">
+        <div class="image-container">
+            <a href="{{ product.url }}" target="_blank">
+                <img src="{{ product.imageSrc }}" class="card-img-top" alt="{{ product.title }}">
+            </a>
+            
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">{{ product.title | title }}</h5>
+            <p class="card-text">{{ product.Description }}</p>
+        </div>
+        <div class="d-flex justify-content-between align-items-center px-3 pb-3">
+            <h4>Pricing Model: {{product.pricingModel | title}}</h4>
+            <a href="{{ product.url }}" target="_blank" class="btn btn-primary">TRY IT NOW</a>
+        </div>
+    </div>
+</div>
+
+  
+
+{% endblock container %}
