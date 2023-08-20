@@ -2,15 +2,25 @@ from django.shortcuts import render, get_object_or_404
 from .models import *
 from django.http import Http404
 from django.db.models import Q
+from django.core.paginator import Paginator
+
 
 # Create your views here.
 
 
 
 def home_view(request):
+    items_per_page = 12
     products = Product.objects.filter(is_active=True)
+    paginator = Paginator(products, items_per_page)
+
+    page_number = request.GET.get('page')  # URL'den sayfa numarasını alın
+    
+    page_obj = paginator.get_page(page_number) 
+
     context = dict(
-        products = products
+        products = products,
+        page_obj =page_obj
     )
     return render(request, 'page/product_list.html',context)
 
