@@ -11,7 +11,7 @@ from django.core.paginator import Paginator
 
 def home_view(request):
     items_per_page = 12
-    products = Product.objects.filter(is_active=True)
+    products = Product.objects.filter(is_active=True).order_by('id')
     paginator = Paginator(products, items_per_page)
 
     page_number = request.GET.get('page')  # URL'den sayfa numarasını alın
@@ -28,10 +28,15 @@ def home_view(request):
 def search_view(request):
     query = request.GET.get('q')
     if query:
-        query = Product.objects.filter(Q(title__icontains=query) | Q(Description__icontains=query))
+        query = Product.objects.filter(Q(title__icontains=query) | Q(description__icontains=query)).order_by('id')
+        items_per_page = 12
+        paginator = Paginator(query, items_per_page)
+        page_number = request.GET.get('page')  # URL'den sayfa numarasını alın
+        page_obj = paginator.get_page(page_number)     
     
     context = dict(
-        query = query
+        query = query,
+        page_obj = page_obj
     )
     return render(request, 'page/product_list.html',context)
 
@@ -40,20 +45,32 @@ def search_view(request):
 
 def category_view(request, category_slug):
     category = get_object_or_404(Category, slug=category_slug)
-    products = Product.objects.filter(is_active=True, category = category)
+    products = Product.objects.filter(is_active=True, category = category).order_by('id')
+
+    items_per_page = 12
+    paginator = Paginator(products, items_per_page)
+    page_number = request.GET.get('page')  # URL'den sayfa numarasını alın
+    page_obj = paginator.get_page(page_number) 
+
     context = dict(
         category = category,
         products = products,
+        page_obj = page_obj
     )  
     return render(request , 'page/product_list.html', context)
 
 
 def pricing_view(request, pricing_slug):
     pricing = get_object_or_404(Pricing, slug=pricing_slug)
-    products = Product.objects.filter(is_active=True, pricingModel = pricing)
+    products = Product.objects.filter(is_active=True, pricingModel = pricing).order_by('id')
+    items_per_page = 12
+    paginator = Paginator(products, items_per_page)
+    page_number = request.GET.get('page')  # URL'den sayfa numarasını alın
+    page_obj = paginator.get_page(page_number) 
     context = dict(
         pricing = pricing,
         products = products,
+        page_obj = page_obj
     )  
     return render(request , 'page/product_list.html', context)
 

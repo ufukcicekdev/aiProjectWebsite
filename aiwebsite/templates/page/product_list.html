@@ -33,7 +33,7 @@
 <div class="row row-cols-1 row-cols-md-3 g-4 py-5">
 
     {% if query %}
-        {% for product in query %}
+        {% for product in page_obj %}
 
         <div class="col">
             <div class="card">
@@ -84,8 +84,10 @@
 
     {% endif %}
 </div>
-<nav aria-label="Page navigation">
-    <ul class="pagination justify-content-center">
+
+
+<div class="pagination-container">
+    <ul class="pagination">
         {% if page_obj.has_previous %}
             <li class="page-item">
                 <a class="page-link" href="?page=1">&laquo; First</a>
@@ -96,21 +98,45 @@
         {% endif %}
 
         {% for num in page_obj.paginator.page_range %}
-            <li class="page-item {% if page_obj.number == num %}active{% endif %}">
-                <a class="page-link" href="?page={{ num }}">{{ num }}</a>
-            </li>
+            {% if num == page_obj.number %}
+                <li class="page-item active">
+                    <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                </li>
+            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                </li>
+            {% elif num == page_obj.paginator.num_pages %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ num }}">Last &raquo;</a>
+                </li>
+            {% elif num == page_obj.paginator.page_range.0 %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ num }}">1</a>
+                </li>
+                <li class="page-item disabled">
+                    <span class="page-link pagination-ellipsis">&hellip;</span>
+                </li>
+            {% elif num == page_obj.paginator.page_range.1 %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                </li>
+            {% elif num == page_obj.paginator.page_range|length %}
+                <li class="page-item disabled">
+                    <span class="page-link pagination-ellipsis">&hellip;</span>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                </li>
+            {% endif %}
         {% endfor %}
 
         {% if page_obj.has_next %}
             <li class="page-item">
                 <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
             </li>
-            <li class="page-item">
-                <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a>
-            </li>
         {% endif %}
     </ul>
-</nav>
-
+</div>
 
 {% endblock container %}

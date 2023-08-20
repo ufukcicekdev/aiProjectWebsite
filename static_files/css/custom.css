@@ -152,3 +152,67 @@ h5 {
     max-height: 300px; /* İçeriğin maksimum yüksekliği */
     overflow-y: auto; /* Yatay kaydırma çubuğunu görüntüle */
   }
+
+
+
+  .pagination-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.pagination {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.page-item {
+    margin: 0;
+}
+
+.page-link {
+    color: #333;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    padding: 10px 15px;
+}
+
+.page-link:hover {
+    background-color: #e9ecef;
+}
+
+.page-item.active .page-link {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.page-item.disabled .page-link {
+    color: #6c757d;
+    background-color: #f8f9fa;
+    border-color: #dee2e6;
+}
+
+.pagination-ellipsis {
+    padding: 0 5px;
+}
+
+@media (max-width: 576px) {
+    .pagination-container {
+        flex-direction: column;
+    }
+
+    .pagination {
+        flex-direction: row;
+        overflow-x: auto;
+        width: 100%;
+        padding: 10px;
+        white-space: nowrap;
+    }
+
+    .page-item {
+        margin: 0 5px;
+    }
+}
