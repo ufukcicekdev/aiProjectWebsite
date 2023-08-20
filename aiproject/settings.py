@@ -91,8 +91,15 @@ WSGI_APPLICATION = 'aiproject.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'defaultdb',  # Veritabanı adı
+        'USER': 'doadmin',  # Veritabanı kullanıcı adı
+        'PASSWORD': 'AVNS_Hw_deuQtGQ_kbilh4F2',  # Veritabanı parolası
+        'HOST': 'db-postgresql-nyc1-97284-do-user-10719355-0.b.db.ondigitalocean.com',  # Veritabanı sunucusu adresi
+        'PORT': '25060',  # Veritabanı sunucusu portu
+        'OPTIONS': {
+            'sslmode': 'require',  # SSL gereklilik durumu
+        },
     }
 }
 
