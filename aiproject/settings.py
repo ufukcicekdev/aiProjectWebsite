@@ -41,7 +41,7 @@ BASE_APPS = [
 
     #myappss
 ]
-THIRD_PARTY_APPS = []
+THIRD_PARTY_APPS = ['*']
 
 MY_APPS = [
     'aiwebsite',
