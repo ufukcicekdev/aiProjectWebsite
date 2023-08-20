@@ -136,9 +136,9 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [
 
-    os.path.join(BASE_DIR, 'static')
+    os.path.join(BASE_DIR, 'static_files')
 ]
-STATIC_ROOT = os.path.join(BASE_DIR, 'static_files')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 
 # Default primary key field type
