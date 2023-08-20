@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404
 from .models import *
 from django.http import Http404
+from django.db.models import Q
+
 # Create your views here.
 
 
@@ -11,6 +13,19 @@ def home_view(request):
         products = products
     )
     return render(request, 'page/product_list.html',context)
+
+
+def search_view(request):
+    query = request.GET.get('q')
+    if query:
+        query = Product.objects.filter(Q(title__icontains=query) | Q(Description__icontains=query))
+    
+    context = dict(
+        query = query
+    )
+    return render(request, 'page/product_list.html',context)
+
+
 
 
 def category_view(request, category_slug):

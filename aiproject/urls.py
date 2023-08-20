@@ -20,7 +20,8 @@ from aiwebsite.views import (
     home_view,
     category_view,
     product_detail_view,
-    pricing_view
+    pricing_view,
+    search_view
 )
 
 
@@ -28,6 +29,8 @@ urlpatterns = [
     path('',home_view),
     path('category/<slug:category_slug>/',category_view, name = "category_view"),
     path('pricing/<slug:pricing_slug>/',pricing_view, name = "pricing_view"),
+    path('search/',search_view, name = "search_view"),
+
     path('category/<slug:category_slug>/product/<slug:product_slug>/',product_detail_view, name = "product_detail_view"),
 
     path('admin/', admin.site.urls),
