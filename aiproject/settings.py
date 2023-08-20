@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-h-3hp@8syl=k2twx6wdzp$s1z0z6e2y*jllq+mx9_0e450f+4-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -41,7 +41,7 @@ BASE_APPS = [
 
     #myappss
 ]
-THIRD_PARTY_APPS = ['*']
+THIRD_PARTY_APPS = []
 
 MY_APPS = [
     'aiwebsite',
