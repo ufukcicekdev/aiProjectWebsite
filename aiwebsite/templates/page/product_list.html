@@ -3,87 +3,74 @@
 {% block container %}
 
 
-<div class="title-page">
-
-    {% if category %}
-        <h2 class="text-center category-title" style="color: aliceblue;">{{ category }}</h2>
-        {% else  %}
-        <h1 class="text-center" style="color: aliceblue;">Popular Ai Website</h1>
+<div class="row row-cols-1 row-cols-md-3 g-4 py-5">
+    <div class="title-page">
+        {% if category %}
+            <h2 class="text-center category-title" style="color: aliceblue;">{{ category }}</h2>
+        {% else %}
+            <h1 class="text-center" style="color: aliceblue;">Discover AI Innovations</h1>
         {% endif %}
+    </div>
     
-</div>
-<div class="search">
-    <i class="fa fa-search"></i>
-    <form action="{% url 'search_view' %}" method="get">
-    <input type="text" name="q" class="form-control" placeholder="Type Something...">
-    <button type="submit" class="btn btn-primary">Search</button>
-    </form>
+    <div class="search col-12 col-md-6 mx-auto mt-3">
+        <form class="input-group" action="{% url 'search_view' %}" method="get">
+            <input type="text" name="q" class="form-control" placeholder="Search for something..." aria-label="Search">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+    </div>
     
+    <div class="counts col-12 mt-3">
+        {% if query %}
+            <h5 class="" style="color: aliceblue;">Show Items ({{ query.count }})</h5>
+        {% elif products %}
+            <h5 class="" style="color: aliceblue;">Show Items ({{ products.count }})</h5>
+        {% endif %}
+    </div>
 </div>
-<div class="counts">
-    {% if query %}
-        <h4 class="">Show Items ({{ query.count }})</h4>
-    {% elif products%}
-        <h4 class="">Show Items ({{ products.count }})</h4>
-    {% endif %}
-</div>
-
 
 
 <div class="row row-cols-1 row-cols-md-3 g-4 py-5">
-
     {% if query %}
         {% for product in page_obj %}
-
         <div class="col">
             <div class="card">
                 <div class="image-container">
-                    <img src="{{ product.imageSrc}}" width="250" height="250" class="card-img-top" alt="{{product.title}}">
-
+                    <img src="{{ product.imageSrc }}" width="250" height="250" class="card-img-top" alt="{{ product.title }}">
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title">{{product.title | title}}  <a href="{{product.url}}" target="_blank" ><button class="btn btn-primary">TRY IT NOW</button></a></h5>
-                    <p class="card-text">{{product.description |truncatechars:200}}</p>
+                    <h5 class="card-title">{{ product.title | title }}</h5>
+                    <p class="card-text">{{ product.description | truncatechars:200 }}</p>
+                    <p class="card-category" style="background-color: grey; color: white; padding: 5px; border-radius: 15px; text-align: center;">{{ product.category.title }}</p>
                 </div>
                 <div class="mb-5 d-flex justify-content-around">
-                    <a href="{{product.get_absolute_url}}"><button class="btn btn-primary">SHOW MORE</button></a>
-                    {% comment "note" %}
-                    <a href="{% url 'product_detail_view' category_slug = product.category.slug slug=product.slug %}" class="list-group-item list-group-item-action">SHOW MORE</a>
-                    {% endcomment%}
-
+                    <a href="{{ product.url }}" target="_blank"><button class="btn btn-primary">TRY IT NOW</button></a>
+                    <a href="{{ product.get_absolute_url }}"><button class="btn btn-primary">SHOW MORE</button></a>
                 </div>
             </div>
         </div>
         {% endfor %}
-    
     {% elif products %}
-
         {% for product in page_obj %}
-
         <div class="col">
             <div class="card">
                 <div class="image-container">
-                    <img src="{{ product.imageSrc}}" width="250" height="250" class="card-img-top" alt="{{product.title}}">
-
+                    <img src="{{ product.imageSrc }}" width="250" height="250" class="card-img-top" alt="{{ product.title }}">
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title">{{product.title | title}}  <a href="{{product.url}}" target="_blank"><button class="btn btn-primary">TRY IT NOW</button></a></h5>
-                    <p class="card-text">{{product.description |truncatechars:200}}</p>
+                    <h5 class="card-title" style="text-align: center;">{{ product.title | title }}</h5>
+                    <p class="card-text">{{ product.description | truncatechars:200 }}</p>
+                    <p class="card-category" style="background-color: grey; color: white; padding: 5px; border-radius: 15px; text-align: center;">{{ product.category.title }}</p>
                 </div>
                 <div class="mb-5 d-flex justify-content-around">
-                    <a href="{{product.get_absolute_url}}"><button class="btn btn-primary">SHOW MORE</button></a>
-                    {% comment "note" %}
-                    <a href="{% url 'product_detail_view' category_slug = product.category.slug slug=product.slug %}" class="list-group-item list-group-item-action">SHOW MORE</a>
-                    {% endcomment%}
-
+                    <a href="{{ product.url }}" target="_blank"><button class="btn btn-primary">TRY IT NOW</button></a>
+                    <a href="{{ product.get_absolute_url }}"><button class="btn btn-primary">SHOW MORE</button></a>
                 </div>
             </div>
         </div>
         {% endfor %}
-
-
     {% endif %}
 </div>
+
 
 
 <div class="pagination-container">

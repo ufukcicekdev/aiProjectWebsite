@@ -107,46 +107,26 @@ h5 {
 }
 
 .search {
-    position: relative;
-    box-shadow: 0 0 40px rgba(51, 51, 51, .1);
+    display: flex;
+    align-items: center;
 }
 
-.search input {
-
-    height: 60px;
-    text-indent: 25px;
-    border: 2px solid #d6d4d4;
-
-
+.input-group {
+    border-radius: 20px;
+    overflow: hidden;
 }
 
-
-.search input:focus {
-
+.form-control {
+    border: none;
+    border-radius: 0;
     box-shadow: none;
-    border: 2px solid blue;
-
-
 }
 
-.search .fa-search {
-
-    position: absolute;
-    top: 20px;
-    left: 16px;
-
+.btn-primary .search {
+    border-radius: 0 20px 20px 0;
 }
 
-.search button {
 
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    height: 50px;
-    width: 110px;
-    background: blue;
-
-}
 
 .dropdown-menu {
     max-height: 300px; /* İçeriğin maksimum yüksekliği */
