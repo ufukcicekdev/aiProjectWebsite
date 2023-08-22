@@ -68,6 +68,7 @@ class Product(models.Model):
     src = models.TextField(blank=True, null=True)
     is_active = models.BooleanField(default=True)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
+    view_count = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.title

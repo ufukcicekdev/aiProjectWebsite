@@ -16,6 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf.urls.static import static
+from django.contrib.sitemaps.views import sitemap
+from aiwebsite.sitemap import CategoryLinkSiteMap,PricingLinkSiteMap
+from django.urls import re_path
+from django.views.generic import TemplateView
 from aiwebsite.views import (
     home_view,
     category_view,
@@ -24,14 +29,20 @@ from aiwebsite.views import (
     search_view
 )
 
+sitemaps = {
+    'categoryLinkSiteMap':CategoryLinkSiteMap, 
+    'pricingLinkSiteMap':PricingLinkSiteMap,   
+}
+
+app_name = "aiwebsite"
 
 urlpatterns = [
-    path('',home_view),
+    path('',home_view,name='home'),
     path('category/<slug:category_slug>/',category_view, name = "category_view"),
     path('pricing/<slug:pricing_slug>/',pricing_view, name = "pricing_view"),
     path('search/',search_view, name = "search_view"),
-
     path('category/<slug:category_slug>/product/<slug:product_slug>/',product_detail_view, name = "product_detail_view"),
-
+    path('sitemap.xml/', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
+    path('robots.txt',TemplateView.as_view(template_name="robots.txt", content_type="text/plain")),
     path('admin/', admin.site.urls),
 ]

@@ -38,6 +38,8 @@ BASE_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sitemaps',
+
 
     #myappss
 ]
@@ -48,6 +50,8 @@ MY_APPS = [
 ]
 
 INSTALLED_APPS =  BASE_APPS + THIRD_PARTY_APPS + MY_APPS
+
+ROBOTS_TXT_PATH = os.path.join(BASE_DIR, 'robots.txt')
 
 
 MIDDLEWARE = [

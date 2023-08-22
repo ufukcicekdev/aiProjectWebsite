@@ -38,13 +38,14 @@
                     <img src="{{ product.imageSrc }}" width="250" height="250" class="card-img-top" alt="{{ product.title }}">
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title">{{ product.title | title }}</h5>
+                    <h5 class="card-title" style="text-align: center;">{{ product.title | title }} <a href="{{ product.url }}" target="_blank" class="btn btn-primary btn-block mb-2">TRY IT NOW</a></h5>
+                    <h6>{{ product.view_count }}<i class="fa fa-eye" style="font-size:20px"></i></h6>
                     <p class="card-text">{{ product.description | truncatechars:200 }}</p>
-                    <p class="card-category" style="background-color: grey; color: white; padding: 5px; border-radius: 15px; text-align: center;">{{ product.category.title }}</p>
+                    <p class="card-category" style="background-color: grey; color: white; padding: 5px; border-radius: 15px; text-align: center; display: inline-block; width: fit-content;">{{ product.category.title }}</p>
                 </div>
-                <div class="mb-5 d-flex justify-content-around">
-                    <a href="{{ product.url }}" target="_blank"><button class="btn btn-primary">TRY IT NOW</button></a>
-                    <a href="{{ product.get_absolute_url }}"><button class="btn btn-primary">SHOW MORE</button></a>
+                <div class="mb-5 d-flex flex-column align-items-center">
+                    
+                    <a href="{{ product.get_absolute_url }}" class="btn btn-primary btn-block" style="background-color: coral; border-radius: 15px;">SHOW MORE</a>
                 </div>
             </div>
         </div>
@@ -57,16 +58,19 @@
                     <img src="{{ product.imageSrc }}" width="250" height="250" class="card-img-top" alt="{{ product.title }}">
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title" style="text-align: center;">{{ product.title | title }}</h5>
+                    <h5 class="card-title" style="text-align: center;">{{ product.title | title }} <a href="{{ product.url }}" target="_blank" class="btn btn-primary btn-block mb-2">TRY IT NOW</a></h5>
+                    <h6>{{ product.view_count }}<i class="fa fa-eye" style="font-size:20px"></i></h6>
                     <p class="card-text">{{ product.description | truncatechars:200 }}</p>
-                    <p class="card-category" style="background-color: grey; color: white; padding: 5px; border-radius: 15px; text-align: center;">{{ product.category.title }}</p>
+                    <p class="card-category" style="background-color: grey; color: white; padding: 5px; border-radius: 15px; text-align: center; display: inline-block; width: fit-content;">{{ product.category.title }}</p>
                 </div>
-                <div class="mb-5 d-flex justify-content-around">
-                    <a href="{{ product.url }}" target="_blank"><button class="btn btn-primary">TRY IT NOW</button></a>
-                    <a href="{{ product.get_absolute_url }}"><button class="btn btn-primary">SHOW MORE</button></a>
+                <div class="mb-5 d-flex flex-column align-items-center">
+                    
+                    <a href="{{ product.get_absolute_url }}" class="btn btn-primary btn-block" style="background-color: coral; border-radius: 15px;">SHOW MORE</a>
                 </div>
             </div>
         </div>
+        
+        
         {% endfor %}
     {% endif %}
 </div>

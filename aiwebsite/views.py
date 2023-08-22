@@ -77,6 +77,8 @@ def pricing_view(request, pricing_slug):
 
 def product_detail_view(request, category_slug, product_slug):
     product = get_object_or_404(Product, category__slug=category_slug, slug=product_slug)
+    product.view_count += 1
+    product.save()
     context = dict(
         product = product
     )
