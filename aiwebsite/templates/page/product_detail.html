@@ -1,30 +1,48 @@
 {% extends 'core/base.html' %} {% block container %}
 
 <div class="col-md-6 mb-4 mx-auto">
-
-  
     <div class="card">
         <div class="image-container">
             <a href="{{ product.url }}" target="_blank">
                 <img src="{{ product.imageSrc }}" class="card-img-top" alt="{{ product.title }}">
             </a>
-            
         </div>
         <div class="card-body">
-            <h5 class="card-title" title="{{product.title}}">{{ product.title | title }}</h5>
-            <h6>{{product.view_count}}<i class="fa fa-eye"
-                style="font-size:20px"></i>
-            </h6>
+            <h5 class="card-title" style="text-align: center;" title="{{product.title}}">{{ product.title | title }}</h5>
+            <h6>{{product.view_count}}<i class="fa fa-eye" style="font-size:20px"></i></h6>
             <p class="card-text">{{ product.description }}</p>
         </div>
         <div class="d-flex justify-content-between align-items-center px-3 pb-3">
             <h4 title="{{product.pricingModel}}">Pricing Model: {{product.pricingModel | title}}</h4>
             <p class="card-category" title="{{ product.category.title }}" style="background-color: grey; color: white; padding: 5px; border-radius: 15px; text-align: center; display: inline-block; width: fit-content;">{{ product.category.title }}</p>
             <a href="{{ product.url }}" target="_blank" class="btn btn-primary">TRY IT NOW</a>
+            <button class="btn btn-secondary copy-link-button" data-link="{{ product.url }}">
+                <i class="fa fa-share"></i> Share Link
+            </button>
         </div>
     </div>
 </div>
 
-  
+<script>
+    const copyLinkButtons = document.querySelectorAll('.copy-link-button');
+
+    copyLinkButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            const link = button.getAttribute('data-link');
+            
+            const tempInput = document.createElement('input');
+            tempInput.value = link;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+
+            button.innerHTML = '<i class="fa fa-check"></i> Copied!';
+            setTimeout(() => {
+                button.innerHTML = '<i class="fa fa-share"></i> Share Link';
+            }, 2000);
+        });
+    });
+</script>
 
 {% endblock container %}

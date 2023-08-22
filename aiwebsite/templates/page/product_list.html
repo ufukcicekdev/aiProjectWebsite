@@ -38,34 +38,59 @@
                     <img src="{{ product.imageSrc }}" width="250" height="250" class="card-img-top" alt="{{ product.title }}">
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title" style="text-align: center;" title="{{product.title}}">{{ product.title | title }} <a href="{{ product.url }}" target="_blank" class="btn btn-primary btn-block mb-2">TRY IT NOW</a></h5>
+                    <h5 class="card-title" style="text-align: center;" title="{{product.title}}">
+                        {{ product.title | title }}  <a href="{{ product.url }}" target="_blank" class="btn btn-primary btn-block mt-2">TRY IT NOW</a>
+                    </h5>
                     <h6>{{ product.view_count }}<i class="fa fa-eye" style="font-size:20px"></i></h6>
                     <p class="card-text">{{ product.description | truncatechars:200 }}</p>
-                    <p class="card-category" title="{{ product.category.title }}" style="background-color: grey; color: white; padding: 5px; border-radius: 15px; text-align: center; display: inline-block; width: fit-content;">{{ product.category.title }}</p>
+                    <p class="card-category" title="{{ product.category.title }}"
+                       style="background-color: grey; color: white; padding: 5px; border-radius: 15px; text-align: center; display: inline-block; width: fit-content;">
+                        {{ product.category.title }}
+                    </p>
                 </div>
-                <div class="mb-5 d-flex flex-column align-items-center">
-                    
-                    <a href="{{ product.get_absolute_url }}" class="btn btn-primary btn-block" style="background-color: coral; border-radius: 15px;">SHOW MORE</a>
+                <div class="d-flex justify-content-between align-items-center p-3">
+                    <div>
+                        <a href="{{ product.get_absolute_url }}" class="btn btn-primary btn-block">SHOW MORE</a>
+                       
+                    </div>
+                    <div>
+                        <button class="btn btn-secondary copy-link-button" data-link="https://aibridge.tech{{ product.get_absolute_url }}">
+                            <i class="fa fa-share"></i> Share Link
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
         {% endfor %}
     {% elif products %}
         {% for product in page_obj %}
+        
         <div class="col">
             <div class="card">
                 <div class="image-container">
                     <img src="{{ product.imageSrc }}" width="250" height="250" class="card-img-top" alt="{{ product.title }}">
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title" style="text-align: center;" title="{{product.title}}">{{ product.title | title }} <a href="{{ product.url }}" target="_blank" class="btn btn-primary btn-block mb-2">TRY IT NOW</a></h5>
+                    <h5 class="card-title" style="text-align: center;" title="{{product.title}}">
+                        {{ product.title | title }}  <a href="{{ product.url }}" target="_blank" class="btn btn-primary btn-block mt-2">TRY IT NOW</a>
+                    </h5>
                     <h6>{{ product.view_count }}<i class="fa fa-eye" style="font-size:20px"></i></h6>
                     <p class="card-text">{{ product.description | truncatechars:200 }}</p>
-                    <p class="card-category" title="{{ product.category.title }}" style="background-color: grey; color: white; padding: 5px; border-radius: 15px; text-align: center; display: inline-block; width: fit-content;">{{ product.category.title }}</p>
+                    <p class="card-category" title="{{ product.category.title }}"
+                       style="background-color: grey; color: white; padding: 5px; border-radius: 15px; text-align: center; display: inline-block; width: fit-content;">
+                        {{ product.category.title }}
+                    </p>
                 </div>
-                <div class="mb-5 d-flex flex-column align-items-center">
-                    
-                    <a href="{{ product.get_absolute_url }}" class="btn btn-primary btn-block" style="background-color: coral; border-radius: 15px;">SHOW MORE</a>
+                <div class="d-flex justify-content-between align-items-center p-3">
+                    <div>
+                        <a href="{{ product.get_absolute_url }}" class="btn btn-primary btn-block">SHOW MORE</a>
+                       
+                    </div>
+                    <div>
+                        <button class="btn btn-secondary copy-link-button" data-link="https://aibridge.tech{{ product.get_absolute_url }}">
+                            <i class="fa fa-share"></i> Share Link
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -129,5 +154,33 @@
         {% endif %}
     </ul>
 </div>
+
+
+
+<script>
+    // Kopyalama işlemi için gerekli JavaScript kodu
+    const copyLinkButtons = document.querySelectorAll('.copy-link-button');
+
+    copyLinkButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            const link = button.getAttribute('data-link');
+            
+            // Kopyalama işlemi
+            const tempInput = document.createElement('input');
+            tempInput.value = link;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+
+            // Kopyalandı bildirimi
+            button.innerHTML = '<i class="fa fa-check"></i> Copied!';
+            setTimeout(() => {
+                button.innerHTML = '<i class="fa fa-share"></i> Share Link';
+            }, 2000);
+        });
+    });
+</script>
+
 
 {% endblock container %}
