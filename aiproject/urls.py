@@ -21,6 +21,8 @@ from django.contrib.sitemaps.views import sitemap
 from aiwebsite.sitemap import CategoryLinkSiteMap,PricingLinkSiteMap
 from django.urls import re_path
 from django.views.generic import TemplateView
+from django.conf.urls import handler404, handler500
+
 from aiwebsite.views import (
     home_view,
     category_view,
@@ -46,3 +48,7 @@ urlpatterns = [
     path('robots.txt',TemplateView.as_view(template_name="robots.txt", content_type="text/plain")),
     path('admin/', admin.site.urls),
 ]
+
+
+handler404 = 'aiwebsite.views.custom_404_view'
+handler500 = 'aiwebsite.views.custom_500_view'

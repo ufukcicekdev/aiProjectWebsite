@@ -83,3 +83,10 @@ def product_detail_view(request, category_slug, product_slug):
         product = product
     )
     return render(request, 'page/product_detail.html',context)
+
+
+def custom_404_view(request, exception):
+    return render(request, 'errors/404.html', status=404)
+
+def custom_500_view(request):
+    return render(request, 'errors/500.html', status=500)
