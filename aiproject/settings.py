@@ -33,7 +33,7 @@ ALLOWED_HOSTS = ['aibridge.tech']
 
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
-CSRF_TRUSTED_ORIGINS = ['aibridge.up.railway.app', 'aibridge.tech']
+CSRF_TRUSTED_ORIGINS = ["https://*.aibridge.tech"]
 
 
 # Application definition
