@@ -105,10 +105,15 @@ def contact_view(request):
                 ['ufukcicek987@gmail.com'],
                 fail_silently=False,
             )
+            
             messages.success(request, 'The form has been successfully submitted.')
             return redirect('contact_view')
+        else:
+            messages.error(request, 'Form has errors. Please correct them.')
+            # Form errors will be shown to the user
+
     else:
-        form = ContactForm()
+        form = ContactForm()  # Create an empty form
     
     context = {
         'form': form,
