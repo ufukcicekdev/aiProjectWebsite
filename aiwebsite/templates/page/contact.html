@@ -1,0 +1,54 @@
+{% extends 'core/base.html' %} {% block container %}
+
+<form action="{% url 'contact_view' %}" method="post" class="col-lg-6 col-md-8 col-sm-10 mx-auto">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="name" class="form-label" style="color: aliceblue;">Your Name</label>
+        <input type="text" class="form-control" id="name" name="name" required>
+    </div>
+    <div class="mb-3">
+        <label for="email" class="form-label" style="color: aliceblue;">Your Email Address</label>
+        <input type="email" class="form-control" id="email" name="email" required>
+    </div>
+    <div class="mb-3">
+        <label for="message" class="form-label" style="color: aliceblue;">Your Message</label>
+        <textarea class="form-control" id="message" name="message" rows="4" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+{% if messages %}
+<div class="messages-container" id="message_container">
+    <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% endif %}
+<style>
+    .messages-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 300px;
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 9999;
+}
+</style>
+
+
+<script>
+    var message_ele = document.getElementById("message_container");
+  
+  setTimeout(function(){ 
+     message_ele.style.display = "none"; 
+  }, 5000);
+  // Timeout i
+  </script>   
+
+{% endblock container %}

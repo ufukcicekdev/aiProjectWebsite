@@ -1,8 +1,12 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
 from django.http import Http404
 from django.db.models import Q
 from django.core.paginator import Paginator
+from .forms import ContactForm
+from django.core.mail import send_mail
+from django.contrib import messages
+
 
 
 # Create your views here.
@@ -84,6 +88,36 @@ def product_detail_view(request, category_slug, product_slug):
     )
     return render(request, 'page/product_detail.html',context)
 
+
+
+def contact_view(request):
+    
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            # Form verilerini al
+            name = form.cleaned_data['name']
+            email = form.cleaned_data['email']
+            message = form.cleaned_data['message']
+            
+            # E-posta gönderimi
+            send_mail(
+                f'Contact Form - {name}',
+                message,
+                email,
+                ['ufukcicek987@gmail.com'],  # Gönderilecek e-posta adresi
+                fail_silently=False,
+            )
+            messages.success(request, 'The form has been successfully submitted.')
+            return redirect('contact_view')
+    else:
+        form = ContactForm()
+    
+    context = {
+        'form': form,
+    }
+    
+    return render(request, 'page/contact.html', context)
 
 def custom_404_view(request, exception):
     return render(request, 'errors/404.html', status=404)

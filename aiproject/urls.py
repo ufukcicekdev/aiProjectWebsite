@@ -28,7 +28,8 @@ from aiwebsite.views import (
     category_view,
     product_detail_view,
     pricing_view,
-    search_view
+    search_view,
+    contact_view
 )
 
 sitemaps = {
@@ -44,6 +45,7 @@ urlpatterns = [
     path('pricing/<slug:pricing_slug>/',pricing_view, name = "pricing_view"),
     path('search/',search_view, name = "search_view"),
     path('category/<slug:category_slug>/product/<slug:product_slug>/',product_detail_view, name = "product_detail_view"),
+    path('contact/', contact_view, name='contact_view'),
     path('sitemap.xml/', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
     path('robots.txt',TemplateView.as_view(template_name="robots.txt", content_type="text/plain")),
     path('admin/', admin.site.urls),

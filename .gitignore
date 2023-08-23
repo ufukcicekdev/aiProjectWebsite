@@ -1,5 +1,5 @@
-# Created by https://www.toptal.com/developers/gitignore/api/python,django,macos
-# Edit at https://www.toptal.com/developers/gitignore?templates=python,django,macos
+# Created by https://www.toptal.com/developers/gitignore/api/python,django,macos,dotenv
+# Edit at https://www.toptal.com/developers/gitignore?templates=python,django,macos,dotenv
 
 ### Django ###
 *.log
@@ -171,6 +171,8 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 
+### dotenv ###
+
 ### macOS ###
 # General
 .DS_Store
@@ -296,4 +298,4 @@ poetry.toml
 # LSP config files
 pyrightconfig.json
 
-# End of https://www.toptal.com/developers/gitignore/api/python,django,macos
+# End of https://www.toptal.com/developers/gitignore/api/python,django,macos,dotenv

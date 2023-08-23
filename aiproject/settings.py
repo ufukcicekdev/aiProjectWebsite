@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-h-3hp@8syl=k2twx6wdzp$s1z0z6e2y*jllq+mx9_0e450f+4-'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -80,7 +83,8 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'aiproject.project_context_processors.global_category_context',
-                'aiproject.project_context_processors.global_pricing_context'
+                'aiproject.project_context_processors.global_pricing_context',
+                'django.contrib.messages.context_processors.messages'
 
             ],
         },
@@ -95,12 +99,12 @@ WSGI_APPLICATION = 'aiproject.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'defaultdb',  # Veritabanı adı
-        'USER': 'doadmin',  # Veritabanı kullanıcı adı
-        'PASSWORD': 'AVNS_Hw_deuQtGQ_kbilh4F2',  # Veritabanı parolası
-        'HOST': 'db-postgresql-nyc1-97284-do-user-10719355-0.b.db.ondigitalocean.com',  # Veritabanı sunucusu adresi
-        'PORT': '25060',  # Veritabanı sunucusu portu
+        'ENGINE': os.getenv('DATABASE_ENGINE'),
+        'NAME': os.getenv('DATABASE_NAME'),
+        'USER': os.getenv('DATABASE_USER'),
+        'PASSWORD': os.getenv('DATABASE_PASSWORD'),
+        'HOST': os.getenv('DATABASE_HOST'),
+        'PORT': os.getenv('DATABASE_PORT'),
         'OPTIONS': {
             'sslmode': 'require',  # SSL gereklilik durumu
         },
@@ -156,3 +160,11 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
