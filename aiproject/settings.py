@@ -32,7 +32,7 @@ DEBUG =False
 ALLOWED_HOSTS = ['aibridge.tech']
 
 
-CSRF_TRUSTED_ORIGINS = ['https://aibridge.tech/']
+CSRF_TRUSTED_ORIGINS = ['aibridge.up.railway.app']
 
 
 # Application definition
