@@ -91,21 +91,18 @@ def product_detail_view(request, category_slug, product_slug):
 
 
 def contact_view(request):
-    
     if request.method == 'POST':
         form = ContactForm(request.POST)
         if form.is_valid():
-            # Form verilerini al
             name = form.cleaned_data['name']
             email = form.cleaned_data['email']
             message = form.cleaned_data['message']
             
-            # E-posta gönderimi
             send_mail(
                 f'Contact Form - {name}',
                 message,
                 email,
-                ['ufukcicek987@gmail.com'],  # Gönderilecek e-posta adresi
+                ['ufukcicek987@gmail.com'],
                 fail_silently=False,
             )
             messages.success(request, 'The form has been successfully submitted.')
