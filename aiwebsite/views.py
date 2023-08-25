@@ -31,19 +31,24 @@ def home_view(request):
 
 def search_view(request):
     query = request.GET.get('q')
-    if query:
-        query = Product.objects.filter(Q(title__icontains=query) | Q(description__icontains=query)).order_by('id')
-        items_per_page = 12
-        paginator = Paginator(query, items_per_page)
-        page_number = request.GET.get('page')  # URL'den sayfa numarasını alın
-        page_obj = paginator.get_page(page_number)     
     
-    context = dict(
-        query = query,
-        page_obj = page_obj
-    )
-    return render(request, 'page/product_list.html',context)
-
+    if query:
+        # Arama sorgusu ile ürünleri filtreleyin ve sıralayın
+        filtered_products = Product.objects.filter(Q(title__icontains=query) | Q(description__icontains=query)).order_by('id')
+        
+        items_per_page = 12
+        paginator = Paginator(filtered_products, items_per_page)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)  # Sayfa nesnesini alın
+    
+        context = {
+            'query': query,
+            'page_obj': page_obj,  # Sayfa nesnesini şablona aktarın
+            'search_count':filtered_products.count()
+        }
+        return render(request, 'page/product_list.html', context)
+    
+    return render(request, 'page/product_list.html')
 
 
 

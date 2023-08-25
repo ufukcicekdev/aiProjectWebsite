@@ -21,138 +21,107 @@
     
     <div class="counts col-12 mt-3">
         {% if query %}
-            <h5 class="" style="color: aliceblue;">Show Items ({{ query.count }})</h5>
+            <h5 class="" style="color: aliceblue;">Search Result Items ({{ search_count }})</h5>
         {% elif products %}
             <h5 class="" style="color: aliceblue;">Show Items ({{ products.count }})</h5>
         {% endif %}
     </div>
 </div>
 
-
+{% if page_obj %}
 <div class="row row-cols-1 row-cols-md-3 g-4 py-5">
-    {% if query %}
-        {% for product in page_obj %}
-        <div class="col">
-            <div class="card">
-                <div class="image-container">
-                    <img src="{{ product.imageSrc }}" width="250" height="250" class="card-img-top" alt="{{ product.title }}">
+    {% for product in page_obj %}
+    <div class="col">
+        <div class="card">
+            <div class="image-container">
+                <img src="{{ product.imageSrc }}" width="250" height="250" class="card-img-top" alt="{{ product.title }}">
+            </div>
+            <div class="card-body">
+                <h5 class="card-title" style="text-align: center;" title="{{product.title}}">
+                    {{ product.title | title }}  <a href="{{ product.url }}" target="_blank" class="btn btn-primary btn-block mt-2">TRY IT NOW</a>
+                </h5>
+                <h6>{{ product.view_count }}<i class="fa fa-eye" style="font-size:20px"></i></h6>
+                <p class="card-category" title="{{ product.category.title }}"
+                   style="background-color: grey; color: white; padding: 5px; border-radius: 15px; text-align: center; display: inline-block; width: fit-content;">
+                    {{ product.category.title }}
+                </p>
+                <h4 title="{{product.pricingModel}}">Pricing Model: {{product.pricingModel | title}}</h4>
+                <p class="card-text">{{ product.description | truncatechars:200 }}</p>
+              
+            </div>
+            <div class="d-flex justify-content-between align-items-center p-3">
+                <div>
+                    <a href="{{ product.get_absolute_url }}" class="btn btn-primary btn-block">SHOW MORE</a>
+                   
                 </div>
-                <div class="card-body">
-                    <h5 class="card-title" style="text-align: center;" title="{{product.title}}">
-                        {{ product.title | title }}  <a href="{{ product.url }}" target="_blank" class="btn btn-primary btn-block mt-2">TRY IT NOW</a>
-                    </h5>
-                    <h6>{{ product.view_count }}<i class="fa fa-eye" style="font-size:20px"></i></h6>
-                    <p class="card-text">{{ product.description | truncatechars:200 }}</p>
-                    <p class="card-category" title="{{ product.category.title }}"
-                       style="background-color: grey; color: white; padding: 5px; border-radius: 15px; text-align: center; display: inline-block; width: fit-content;">
-                        {{ product.category.title }}
-                    </p>
-                </div>
-                <div class="d-flex justify-content-between align-items-center p-3">
-                    <div>
-                        <a href="{{ product.get_absolute_url }}" class="btn btn-primary btn-block">SHOW MORE</a>
-                       
-                    </div>
-                    <div>
-                        <button class="btn btn-secondary copy-link-button" data-link="https://aibridge.tech{{ product.get_absolute_url }}">
-                            <i class="fa fa-share"></i> Share Link
-                        </button>
-                    </div>
+                <div>
+                    <button class="btn btn-secondary copy-link-button" data-link="https://aibridge.tech{{ product.get_absolute_url }}">
+                        <i class="fa fa-share"></i> Share Link
+                    </button>
                 </div>
             </div>
         </div>
-        {% endfor %}
-    {% elif products %}
-        {% for product in page_obj %}
-        
-        <div class="col">
-            <div class="card">
-                <div class="image-container">
-                    <img src="{{ product.imageSrc }}" width="250" height="250" class="card-img-top" alt="{{ product.title }}">
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title" style="text-align: center;" title="{{product.title}}">
-                        {{ product.title | title }}  <a href="{{ product.url }}" target="_blank" class="btn btn-primary btn-block mt-2">TRY IT NOW</a>
-                    </h5>
-                    <h6>{{ product.view_count }}<i class="fa fa-eye" style="font-size:20px"></i></h6>
-                    <p class="card-text">{{ product.description | truncatechars:200 }}</p>
-                    <p class="card-category" title="{{ product.category.title }}"
-                       style="background-color: grey; color: white; padding: 5px; border-radius: 15px; text-align: center; display: inline-block; width: fit-content;">
-                        {{ product.category.title }}
-                    </p>
-                </div>
-                <div class="d-flex justify-content-between align-items-center p-3">
-                    <div>
-                        <a href="{{ product.get_absolute_url }}" class="btn btn-primary btn-block">SHOW MORE</a>
-                       
-                    </div>
-                    <div>
-                        <button class="btn btn-secondary copy-link-button" data-link="https://aibridge.tech{{ product.get_absolute_url }}">
-                            <i class="fa fa-share"></i> Share Link
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        
-        {% endfor %}
-    {% endif %}
+    </div>
+    {% endfor %}
+
+    
 </div>
+{% else %}
+    <div class="row row-cols-1 row-cols-md-3 g-4 py-5">
+        <div class="col" style="align-items: center;">
+        <h1 style="color: aliceblue;">Product Not Found!</h1>
+
+        </div>
+    </div>
+{% endif%}
 
 
 
+<!-- page/product_list.html -->
+
+<!-- Burada ürün listesi veya arama sonuçlarını gösteriyorsunuz -->
 <div class="pagination-container">
-    <ul class="pagination">
-        {% if page_obj.has_previous %}
-            <li class="page-item">
-                <a class="page-link" href="?page=1">&laquo; First</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
-            </li>
-        {% endif %}
-
-        {% for num in page_obj.paginator.page_range %}
-            {% if num == page_obj.number %}
-                <li class="page-item active">
-                    <a class="page-link" href="?page={{ num }}">{{ num }}</a>
-                </li>
-            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
                 <li class="page-item">
-                    <a class="page-link" href="?page={{ num }}">{{ num }}</a>
-                </li>
-            {% elif num == page_obj.paginator.num_pages %}
-                <li class="page-item">
-                    <a class="page-link" href="?page={{ num }}">Last &raquo;</a>
-                </li>
-            {% elif num == page_obj.paginator.page_range.0 %}
-                <li class="page-item">
-                    <a class="page-link" href="?page={{ num }}">1</a>
-                </li>
-                <li class="page-item disabled">
-                    <span class="page-link pagination-ellipsis">&hellip;</span>
-                </li>
-            {% elif num == page_obj.paginator.page_range.1 %}
-                <li class="page-item">
-                    <a class="page-link" href="?page={{ num }}">{{ num }}</a>
-                </li>
-            {% elif num == page_obj.paginator.page_range|length %}
-                <li class="page-item disabled">
-                    <span class="page-link pagination-ellipsis">&hellip;</span>
+                    <a class="page-link" href="?q={{ query }}&page=1" aria-label="First">
+                        <span aria-hidden="true">&laquo;&laquo;</span>
+                    </a>
                 </li>
                 <li class="page-item">
-                    <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                    <a class="page-link" href="?q={{ query }}&page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
                 </li>
             {% endif %}
-        {% endfor %}
 
-        {% if page_obj.has_next %}
-            <li class="page-item">
-                <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
-            </li>
-        {% endif %}
-    </ul>
+            {% for num in page_obj.paginator.page_range %}
+                {% if num == page_obj.number %}
+                    <li class="page-item active">
+                        <span class="page-link">{{ num }}</span>
+                    </li>
+                {% elif num > page_obj.number and num <= page_obj.number|add:'2' %}
+                    <li class="page-item">
+                        <a class="page-link" href="?q={{ query }}&page={{ num }}">{{ num }}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?q={{ query }}&page={{ page_obj.next_page_number }}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?q={{ query }}&page={{ page_obj.paginator.num_pages }}" aria-label="Last">
+                        <span aria-hidden="true">&raquo;&raquo;</span>
+                    </a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
 </div>
 
 

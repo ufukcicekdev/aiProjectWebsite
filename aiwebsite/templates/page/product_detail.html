@@ -10,11 +10,11 @@
         <div class="card-body">
             <h5 class="card-title" style="text-align: center;" title="{{product.title}}">{{ product.title | title }}</h5>
             <h6>{{product.view_count}}<i class="fa fa-eye" style="font-size:20px"></i></h6>
+            <p class="card-category" title="{{ product.category.title }}" style="background-color: grey; color: white; padding: 5px; border-radius: 15px; text-align: center; display: inline-block; width: fit-content;">{{ product.category.title }}</p>
             <p class="card-text">{{ product.description }}</p>
         </div>
         <div class="d-flex justify-content-between align-items-center px-3 pb-3">
             <h4 title="{{product.pricingModel}}">Pricing Model: {{product.pricingModel | title}}</h4>
-            <p class="card-category" title="{{ product.category.title }}" style="background-color: grey; color: white; padding: 5px; border-radius: 15px; text-align: center; display: inline-block; width: fit-content;">{{ product.category.title }}</p>
             <a href="{{ product.url }}" target="_blank" class="btn btn-primary">TRY IT NOW</a>
             <button class="btn btn-secondary copy-link-button" data-link="{{ product.url }}">
                 <i class="fa fa-share"></i> Share Link
