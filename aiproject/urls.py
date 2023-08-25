@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
 from django.contrib.sitemaps.views import sitemap
-from aiwebsite.sitemap import CategoryLinkSiteMap,PricingLinkSiteMap
+from aiwebsite.sitemap import CategoryLinkSiteMap,PricingLinkSiteMap,ProductLinkSiteMap
 from django.urls import re_path
 from django.views.generic import TemplateView
 from django.conf.urls import handler404, handler500
@@ -34,7 +34,9 @@ from aiwebsite.views import (
 
 sitemaps = {
     'categoryLinkSiteMap':CategoryLinkSiteMap, 
-    'pricingLinkSiteMap':PricingLinkSiteMap,   
+    'pricingLinkSiteMap':PricingLinkSiteMap, 
+    'productLinkSiteMap':ProductLinkSiteMap,  
+
 }
 
 app_name = "aiwebsite"
