@@ -30,11 +30,13 @@ SECRET_KEY = 'django-insecure-h-3hp@8syl=k2twx6wdzp$s1z0z6e2y*jllq+mx9_0e450f+4-
 DEBUG =False
 
 ALLOWED_HOSTS = ['aibridge.tech']
+#ALLOWED_HOSTS = ['*']
 
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
 CSRF_TRUSTED_ORIGINS = ["https://*.aibridge.tech"]
 
+#CSRF_TRUSTED_ORIGINS = ["https://*.*"]
 
 # Application definition
 
@@ -46,7 +48,11 @@ BASE_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sitemaps',
-
+    'django_check_seo',
+    'django.contrib.sites',
+    'cms',
+    'menus',
+    'treebeard'
 
     #myappss
 ]
@@ -55,6 +61,8 @@ THIRD_PARTY_APPS = []
 MY_APPS = [
     'aiwebsite',
 ]
+
+SITE_ID =1
 
 INSTALLED_APPS =  BASE_APPS + THIRD_PARTY_APPS + MY_APPS
 
@@ -138,7 +146,13 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
+
 LANGUAGE_CODE = 'en-us'
+LANGUAGES = [
+    ('en-us', 'English'),
+    ('de', 'German'),
+]
+
 
 TIME_ZONE = 'UTC'
 
